@@ -225,42 +225,6 @@ function App() {
         <Login onLogin={handleLogin} />
       ) : (
         <div className="dashboard">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            style={{ position: 'fixed', width: '100%', height: '100%', objectFit: 'cover' }}
-          >
-            <source src="/dashvideo.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <aside ref={sidebarRef} className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
-            <h2>Sentivent</h2>
-            <nav>
-              <a href="#" className="menu-item active">
-                <FiPieChart /> Dashboard
-              </a>
-              <a href="#" className="menu-item">
-                <FiMessageCircle /> Messages
-              </a>
-              <a href="#" className="menu-item">
-                <FiMail /> Emails
-              </a>
-              <a href="#" className="menu-item">
-                <FiAlertCircle /> Alerts
-              </a>
-            </nav>
-            <div className="user-section">
-              <div className="user-info">
-                <span className="user-email">{user?.email}</span>
-              </div>
-              <button className="logout-button" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          </aside>
-
           <main className="main-content">
             <div className="menu-toggle">
               <IoMenu onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
@@ -430,6 +394,43 @@ function App() {
               </div>
             </div>
           </main>
+
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            style={{ position: 'fixed', width: '100%', height: '100%', objectFit: 'cover' }}
+          >
+            <source src="/dashvideo.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          <aside ref={sidebarRef} className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+            <h2>Sentivent</h2>
+            <nav>
+              <a href="#" className="menu-item active">
+                <FiPieChart /> Dashboard
+              </a>
+              <a href="#" className="menu-item">
+                <FiMessageCircle /> Messages
+              </a>
+              <a href="#" className="menu-item">
+                <FiMail /> Emails
+              </a>
+              <a href="#" className="menu-item">
+                <FiAlertCircle /> Alerts
+              </a>
+            </nav>
+            <div className="user-section">
+              <div className="user-info">
+                <span className="user-email">{user?.email}</span>
+              </div>
+              <button className="logout-button" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          </aside>
         </div>
       )}
     </>

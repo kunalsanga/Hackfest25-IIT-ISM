@@ -18,6 +18,20 @@ Sentivent is a modern dashboard application that provides real-time sentiment an
 - **Interactive Dashboard**: Beautiful and responsive UI with real-time data visualization
 - **Priority Management**: Track and manage urgent issues with priority indicators
 - **Performance Metrics**: Monitor key performance indicators across all platforms
+- **Custom AI-Powered Sentiment Analysis**:
+  - Advanced text processing using NLTK
+  - Machine learning-based sentiment classification
+  - Custom rule-based issue detection
+  - TF-IDF vectorization for feature extraction
+- **Multi-Source Data Collection**:
+  - Survey response collection
+  - Chat message analysis
+  - JSON-based data storage
+- **Comprehensive Analysis**:
+  - Sentiment scoring (positive/negative/neutral)
+  - Issue detection across multiple categories
+  - Detailed feedback analysis
+  - Summary statistics generation
 
 ## Tech Stack
 
@@ -93,6 +107,67 @@ src/
 - Gemini AI-powered suggestions
 - Automated issue prioritization
 - Smart recommendations
+
+### 5. Custom AI Model Architecture
+#### 1. Sentiment Analysis Engine
+- **Text Preprocessing**
+  - Tokenization
+  - Stopword removal
+  - Text normalization
+  - Feature extraction using TF-IDF
+
+- **Sentiment Classification**
+  - Logistic Regression model
+  - Custom sentiment scoring system
+  - Multi-class classification (positive/negative/neutral)
+
+#### 2. Issue Detection System
+- **Rule-Based Detection**
+  - Technical issues
+  - Content issues
+  - Speaker issues
+  - Venue issues
+  - Schedule issues
+  - Registration issues
+  - Network issues
+  - Audio issues
+  - Video issues
+  - Platform issues
+
+- **Keyword-Based Analysis**
+  - Custom keyword sets for each issue type
+  - Context-aware issue detection
+  - Priority-based issue scoring
+
+### 6. System Workflow
+1. **Data Collection**
+   - Collect feedback from multiple sources
+   - Store data in structured JSON format
+   - Maintain feedback history
+
+2. **Text Processing**
+   - Clean and normalize text
+   - Extract features using TF-IDF
+   - Prepare data for analysis
+
+3. **Analysis Pipeline**
+   - Sentiment classification
+   - Issue detection
+   - Score calculation
+   - Summary generation
+
+4. **Results Generation**
+   - Detailed analysis reports
+   - Issue summaries
+   - Sentiment trends
+   - Actionable insights
+
+### 7. API Endpoints
+- `/analyze-feedback`: Full feedback analysis
+- `/analyze-surveys`: Survey-specific analysis
+- `/analyze-chats`: Chat message analysis
+- `/analyze-text`: Single text analysis
+- `/get-feedback`: Retrieve all feedback
 
 ## Contributing
 
