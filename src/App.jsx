@@ -226,11 +226,11 @@ function App() {
       ) : (
         <div className="dashboard">
           <main className="main-content">
-            <div className="menu-toggle">
-              <IoMenu onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
-            </div>
             <header className="dashboard-header">
               <div className="header-content">
+                <div className="menu-toggle">
+                  <IoMenu onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+                </div>
                 <h1>Sentivent</h1>
                 <div className="date-display">
                   {new Date().toLocaleDateString('en-US', {
@@ -306,91 +306,97 @@ function App() {
             </div>
 
             <div className="dashboard-grid">
-              <div className={`card urgent-issues ${isSidebarOpen ? 'blur' : ''}`}>
-                <div className="card-header">
-                  <h3>Urgent Issues</h3>
-                  <button 
-                    className="refresh-button"
-                    onClick={fetchSuggestions}
-                    disabled={isLoadingSuggestions}
-                  >
-                    {isLoadingSuggestions ? 'Refreshing...' : 'Refresh Suggestions'}
-                  </button>
-                </div>
-                <div className="urgent-issues-list">
-                  <div className="urgent-issue-item">
-                    <div className="issue-header">
-                      <span className="severity-badge very-high">Very High</span>
-                      <h4>Long Queue</h4>
-                    </div>
-                    <p>Main entrance experiencing extremely long wait times</p>
-                    <div className="issue-meta">
-                      <span className="location">Location: Main Entrance</span>
-                      <span className="time">Reported: 5 minutes ago</span>
-                    </div>
-                  </div>
-                  <div className="urgent-issue-item">
-                    <div className="issue-header">
-                      <span className="severity-badge high">High</span>
-                      <h4>Audio Glitch</h4>
-                    </div>
-                    <p>Intermittent audio issues reported in Hall A</p>
-                    <div className="issue-meta">
-                      <span className="location">Location: Hall A</span>
-                      <span className="time">Reported: 15 minutes ago</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="ai-suggestions">
-                  <h3>AI Generated Suggestions</h3>
-                  {suggestionError ? (
-                    <div className="error-message">
-                      {suggestionError}
-                      <button onClick={fetchSuggestions} className="retry-button">
-                        Retry
+              <div className="grid-left">
+                <div className={`left-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+                  <div className="card urgent-issues">
+                    <div className="card-header">
+                      <h3>Urgent Issues</h3>
+                      <button 
+                        className="refresh-button"
+                        onClick={fetchSuggestions}
+                        disabled={isLoadingSuggestions}
+                      >
+                        {isLoadingSuggestions ? 'Refreshing...' : 'Refresh Suggestions'}
                       </button>
                     </div>
-                  ) : isLoadingSuggestions ? (
-                    <div className="loading-suggestions">
-                      <div className="loading-spinner"></div>
-                      Generating suggestions...
-                    </div>
-                  ) : aiSuggestions.length > 0 ? (
-                    aiSuggestions.map((suggestion, index) => (
-                      <div key={index} className="suggestion-item">
-                        <div className="suggestion-header">
-                          <span className="suggestion-icon">🤖</span>
-                          <h4>{suggestion.title}</h4>
+                    <div className="urgent-issues-list">
+                      <div className="urgent-issue-item">
+                        <div className="issue-header">
+                          <span className="severity-badge very-high">Very High</span>
+                          <h4>Long Queue</h4>
                         </div>
-                        <p>{suggestion.description}</p>
-                        <div className="suggestion-meta">
-                          <span className={`priority ${suggestion.priority.toLowerCase()}`}>
-                            Priority: {suggestion.priority}
-                          </span>
-                          <span className="impact">Impact: {suggestion.impact}</span>
+                        <p>Main entrance experiencing extremely long wait times</p>
+                        <div className="issue-meta">
+                          <span className="location">Location: Main Entrance</span>
+                          <span className="time">Reported: 5 minutes ago</span>
                         </div>
                       </div>
-                    ))
-                  ) : (
-                    <div className="no-suggestions">
-                      No suggestions available at the moment.
+                      <div className="urgent-issue-item">
+                        <div className="issue-header">
+                          <span className="severity-badge high">High</span>
+                          <h4>Audio Glitch</h4>
+                        </div>
+                        <p>Intermittent audio issues reported in Hall A</p>
+                        <div className="issue-meta">
+                          <span className="location">Location: Hall A</span>
+                          <span className="time">Reported: 15 minutes ago</span>
+                        </div>
+                      </div>
                     </div>
-                  )}
+
+                    <div className="ai-suggestions">
+                      <h3>AI Generated Suggestions</h3>
+                      {suggestionError ? (
+                        <div className="error-message">
+                          {suggestionError}
+                          <button onClick={fetchSuggestions} className="retry-button">
+                            Retry
+                          </button>
+                        </div>
+                      ) : isLoadingSuggestions ? (
+                        <div className="loading-suggestions">
+                          <div className="loading-spinner"></div>
+                          Generating suggestions...
+                        </div>
+                      ) : aiSuggestions.length > 0 ? (
+                        aiSuggestions.map((suggestion, index) => (
+                          <div key={index} className="suggestion-item">
+                            <div className="suggestion-header">
+                              <span className="suggestion-icon">🤖</span>
+                              <h4>{suggestion.title}</h4>
+                            </div>
+                            <p>{suggestion.description}</p>
+                            <div className="suggestion-meta">
+                              <span className={`priority ${suggestion.priority.toLowerCase()}`}>
+                                Priority: {suggestion.priority}
+                              </span>
+                              <span className="impact">Impact: {suggestion.impact}</span>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="no-suggestions">
+                          No suggestions available at the moment.
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="card chart-container">
+                    <h3>Sentiment Distribution</h3>
+                    <div className="pie-chart">
+                      <Pie data={sentimentChartData} options={chartOptions} />
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <SentimentAnalysis 
-                feedback={currentFeedback} 
-                onSentimentUpdate={handleSentimentUpdate}
-                sentimentAnalysis={sentimentAnalysis}
-              />
-            </div>
-
-            <div className="card chart-container">
-              <h3>Sentiment Distribution</h3>
-              <div className="pie-chart">
-                <Pie data={sentimentChartData} options={chartOptions} />
+              <div className="grid-right">
+                <SentimentAnalysis 
+                  feedback={currentFeedback} 
+                  onSentimentUpdate={handleSentimentUpdate}
+                  sentimentAnalysis={sentimentAnalysis}
+                />
               </div>
             </div>
           </main>
