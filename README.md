@@ -5,7 +5,7 @@ Sentivent is a modern dashboard application that provides real-time sentiment an
 ## Preview
 
 ### Welcome Screen
-![Welcome Screen](public/welcome.png)
+![Welcome Screen](https://github.com/kunalsanga/Hackfest25-IIT-ISM/blob/83f3c481a7aa5657be90c9fc9886447ecc7e9e36/welcome.png)
 
 ### Dashboard
 ![Dashboard Preview](public/dashboard.png)
