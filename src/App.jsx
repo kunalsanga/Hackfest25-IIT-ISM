@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { FiMessageCircle, FiMail, FiAlertCircle, FiPieChart } from 'react-icons/fi';
 import { IoMenu } from "react-icons/io5";
 import SentimentAnalysis from './components/SentimentAnalysis';
+import SocialMediaStats from './components/SocialMediaStats';
 import Login from './components/Login';
 import { generateAISuggestions, analyzeSentiment } from './services/geminiService';
+import { collectSocialMediaData, getSocialMediaStats } from './services/socialMediaService';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -61,6 +63,11 @@ function App() {
     emailsReceived: 0,
     messagesPercentage: 0,
     emailsPercentage: 0
+  });
+
+  const [socialMediaData, setSocialMediaData] = useState({
+    source: 'twitter',
+    count: 0
   });
 
   const handleSentimentUpdate = (newAnalysis) => {
@@ -235,8 +242,27 @@ function App() {
 
     if (isLoggedIn) {
       initializeApp();
+      
+      // Set up interval for social media data collection
+      const socialMediaInterval = setInterval(async () => {
+        try {
+          const data = await collectSocialMediaData();
+          setSocialMediaData(data);
+        } catch (error) {
+          console.error('Error collecting social media data:', error);
+        }
+      }, 5000); // Collect data every 5 seconds
+      
+      return () => {
+        clearInterval(socialMediaInterval);
+      };
     }
   }, [isLoggedIn]);
+
+  // Add this function to handle social media data updates
+  const handleSocialMediaUpdate = (data) => {
+    setSocialMediaData(data);
+  };
 
   return (
     <>
@@ -415,10 +441,23 @@ function App() {
                         </div>
                       </div>
 
-                      <div className="card chart-container">
-                        <h3>Sentiment Distribution</h3>
-                        <div className="pie-chart">
-                          <Pie data={sentimentChartData} options={chartOptions} />
+                      <div className="charts-container">
+                        <div className="card chart-container">
+                          <h3>Sentiment Distribution</h3>
+                          <div className="chart-row">
+                            <div className="pie-chart">
+                              <Pie data={sentimentChartData} options={chartOptions} />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="card chart-container">
+                          <h3>Social Media Engagement</h3>
+                          <div className="chart-row">
+                            <div className="social-media-chart">
+                              <SocialMediaStats data={socialMediaData} />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

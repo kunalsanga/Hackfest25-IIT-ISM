@@ -77,49 +77,26 @@ const Login = ({ onLogin }) => {
     setIsLoading(true);
     
     try {
-      let response;
+      // Bypass authentication - allow access regardless of credentials
+      // Create a mock user object
+      const mockUser = {
+        id: '1',
+        name: name || 'Demo User',
+        email: email,
+        role: 'admin'
+      };
       
-      if (isRegistering) {
-        // Register new user
-        response = await axios.post(`${API_URL}/register`, {
-          name,
-          email,
-          password
-        });
-        
-        if (response.data.success) {
-          // Switch to login view after successful registration
-          setIsRegistering(false);
-          setError('');
-          setIsLoading(false);
-          // Clear fields
-          setPassword('');
-          // Show success message
-          setError('Registration successful! Please login with your credentials.');
-          return;
-        }
-      } else {
-        // Login existing user
-        response = await axios.post(`${API_URL}/login`, {
-          email,
-          password
-        });
-        
-        if (response.data.success) {
-          // Store token in localStorage
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          
-          // Call the onLogin function passed from parent
-          onLogin(response.data.user);
-        }
-      }
+      // Store mock token in localStorage
+      localStorage.setItem('token', 'mock-token-123');
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      
+      // Call the onLogin function with the mock user
+      onLogin(mockUser);
+      
+      // No need to make API calls
     } catch (error) {
-      console.error('Authentication error:', error);
-      setError(
-        error.response?.data?.message || 
-        'An error occurred during authentication. Please try again.'
-      );
+      console.error('Error:', error);
+      setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
