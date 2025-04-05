@@ -2,7 +2,13 @@
 
 Sentivent is a modern dashboard application that provides real-time sentiment analysis and monitoring of social media interactions across multiple platforms including Twitter, Instagram, and email communications.
 
-![Dashboard Preview](public/dashboard-preview.png)
+## Preview
+
+### Welcome Screen
+![Welcome Screen](public/welcome.png)
+
+### Dashboard
+![Dashboard Preview](public/dashboard.png)
 
 ## Features
 

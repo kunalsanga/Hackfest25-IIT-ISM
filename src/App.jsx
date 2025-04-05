@@ -1,16 +1,9 @@
-<<<<<<< HEAD
 import { useState, useEffect, useRef } from 'react';
-=======
-import { useState, useEffect } from 'react';
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
 import { FiMessageCircle, FiMail, FiAlertCircle, FiPieChart } from 'react-icons/fi';
 import { IoMenu } from "react-icons/io5";
 import SentimentAnalysis from './components/SentimentAnalysis';
 import Login from './components/Login';
-<<<<<<< HEAD
 import { generateAISuggestions, analyzeSentiment } from './services/geminiService';
-=======
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -40,10 +33,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-<<<<<<< HEAD
   const sidebarRef = useRef(null);
-=======
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
   const [sentimentData, setSentimentData] = useState({
     messages: { count: 120, change: '+20%' },
     emails: { count: 85, change: '+35%' },
@@ -58,7 +48,6 @@ function App() {
     recentFeedback: []
   });
 
-<<<<<<< HEAD
   const [aiSuggestions, setAiSuggestions] = useState([]);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
   const [suggestionError, setSuggestionError] = useState(null);
@@ -72,8 +61,6 @@ function App() {
     emailsPercentage: 0
   });
 
-=======
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
   const handleSentimentUpdate = (newAnalysis) => {
     setSentimentAnalysis(newAnalysis);
   };
@@ -99,7 +86,6 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-<<<<<<< HEAD
   const fetchSuggestions = async () => {
     setIsLoadingSuggestions(true);
     setSuggestionError(null);
@@ -154,8 +140,6 @@ function App() {
     analyzeFeedback();
   }, [currentFeedback]);
 
-=======
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
   const sentimentChartData = {
     labels: ['Positive', 'Neutral', 'Negative'],
     datasets: [
@@ -200,7 +184,6 @@ function App() {
     setIsLoggedIn(false);
   };
 
-<<<<<<< HEAD
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isSidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -236,15 +219,12 @@ function App() {
     fetchStats();
   }, []);
 
-=======
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
   return (
     <>
       {!isLoggedIn ? (
         <Login onLogin={handleLogin} />
       ) : (
         <div className="dashboard">
-<<<<<<< HEAD
           <video 
             autoPlay 
             loop 
@@ -257,10 +237,6 @@ function App() {
           </video>
           <aside ref={sidebarRef} className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
             <h2>Sentivent</h2>
-=======
-          <aside className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
-            <h2>CRM Dashboard</h2>
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
             <nav>
               <a href="#" className="menu-item active">
                 <FiPieChart /> Dashboard
@@ -289,7 +265,6 @@ function App() {
             <div className="menu-toggle">
               <IoMenu onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
             </div>
-<<<<<<< HEAD
             <header className="dashboard-header">
               <div className="header-content">
                 <h1>Sentivent</h1>
@@ -303,6 +278,7 @@ function App() {
                 </div>
               </div>
             </header>
+
             <div className="stats-grid">
               <div className="stat-card">
                 <div className="stat-icon twitter">
@@ -364,6 +340,7 @@ function App() {
                 </div>
               </div>
             </div>
+
             <div className="dashboard-grid">
               <div className={`card urgent-issues ${isSidebarOpen ? 'blur' : ''}`}>
                 <div className="card-header">
@@ -376,11 +353,6 @@ function App() {
                     {isLoadingSuggestions ? 'Refreshing...' : 'Refresh Suggestions'}
                   </button>
                 </div>
-=======
-            <div className="dashboard-grid">
-              <div className={`card urgent-issues ${isSidebarOpen ? 'blur' : ''}`}>
-                <h3>Urgent Issues</h3>
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
                 <div className="urgent-issues-list">
                   <div className="urgent-issue-item">
                     <div className="issue-header">
@@ -408,7 +380,6 @@ function App() {
 
                 <div className="ai-suggestions">
                   <h3>AI Generated Suggestions</h3>
-<<<<<<< HEAD
                   {suggestionError ? (
                     <div className="error-message">
                       {suggestionError}
@@ -442,40 +413,13 @@ function App() {
                       No suggestions available at the moment.
                     </div>
                   )}
-=======
-                  <div className="suggestion-item">
-                    <div className="suggestion-header">
-                      <span className="suggestion-icon">🤖</span>
-                      <h4>Deploy Additional Staff</h4>
-                    </div>
-                    <p>Based on the long queue issue at the main entrance, consider deploying 2-3 additional staff members to handle the increased traffic.</p>
-                    <div className="suggestion-meta">
-                      <span className="priority">Priority: High</span>
-                      <span className="impact">Impact: Immediate</span>
-                    </div>
-                  </div>
-                  <div className="suggestion-item">
-                    <div className="suggestion-header">
-                      <span className="suggestion-icon">🤖</span>
-                      <h4>Check Sound System</h4>
-                    </div>
-                    <p>For the audio glitch in Hall A, recommend conducting a thorough sound system check and having backup equipment ready.</p>
-                    <div className="suggestion-meta">
-                      <span className="priority">Priority: High</span>
-                      <span className="impact">Impact: Immediate</span>
-                    </div>
-                  </div>
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
                 </div>
               </div>
 
               <SentimentAnalysis 
                 feedback={currentFeedback} 
                 onSentimentUpdate={handleSentimentUpdate}
-<<<<<<< HEAD
                 sentimentAnalysis={sentimentAnalysis}
-=======
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
               />
             </div>
 
@@ -485,34 +429,6 @@ function App() {
                 <Pie data={sentimentChartData} options={chartOptions} />
               </div>
             </div>
-<<<<<<< HEAD
-=======
-
-            <div className="stats-grid">
-              <div className="stat-card">
-                <h3>Avg First Reply Time</h3>
-                <div className="stat-value">{sentimentData.avgFirstReply}</div>
-              </div>
-              <div className="stat-card">
-                <h3>Avg Full Resolve Time</h3>
-                <div className="stat-value">{sentimentData.avgFullResolve}</div>
-              </div>
-              <div className="stat-card">
-                <h3>Messages</h3>
-                <div className="stat-value">
-                  {sentimentData.messages.count}
-                  <span className="stat-change">{sentimentData.messages.change}</span>
-                </div>
-              </div>
-              <div className="stat-card">
-                <h3>Emails</h3>
-                <div className="stat-value">
-                  {sentimentData.emails.count}
-                  <span className="stat-change">{sentimentData.emails.change}</span>
-                </div>
-              </div>
-            </div>
->>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
           </main>
         </div>
       )}
