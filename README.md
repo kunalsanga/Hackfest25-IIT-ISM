@@ -1,7 +1,6 @@
 # Sentivent - Social Media Sentiment Analysis Dashboard
 
-Sentivent is a sentiment analysis dahsboard, made for the event organizers, to complete the bridge of communication between event organizers and the audience. 
-The data for analysis is taken by recent feedbacks of the user and the social media apps (Twitter, Instagram, LinkedIn).
+Sentivent is a modern sentiment analysis dashboard designed for event organizers to bridge the communication gap between organizers and their audience. The platform provides real-time sentiment analysis and monitoring of social media interactions across multiple platforms including Twitter, Instagram, and email communications. The data for analysis is collected from recent user feedback and social media apps (Twitter, Instagram, LinkedIn).
 
 ## Preview
 
