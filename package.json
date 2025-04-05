@@ -13,7 +13,10 @@
     "dev:full": "concurrently \"npm run dev\" \"npm run dev:server\""
   },
   "dependencies": {
+<<<<<<< HEAD
     "@google/generative-ai": "^0.24.0",
+=======
+>>>>>>> e39cc2411fb085ce48b0d66c364ffb57acb00236
     "@nivo/line": "^0.84.0",
     "@nivo/pie": "^0.84.0",
     "axios": "^1.6.8",
