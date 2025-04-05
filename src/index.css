@@ -100,6 +100,8 @@ body {
   padding: 0 1rem;
   animation: fadeIn 0.5s ease-out;
   margin-left: 4rem;
+  margin-right: 2rem;
+  position: relative;
 }
 
 .header-content {
@@ -108,6 +110,7 @@ body {
   align-items: center;
   padding: 1rem 0;
   position: relative;
+  gap: 2rem;
 }
 
 .dashboard-header h1 {
@@ -508,7 +511,7 @@ body {
 
 .menu-toggle {
   position: absolute;
-  left: -3rem;
+  left: -3.5rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
@@ -1282,4 +1285,60 @@ body {
 .stat-icon.message svg,
 .stat-icon.email svg {
   color: white;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(139, 92, 246, 0.3);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.error-banner {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.error-banner p {
+  color: var(--danger-color);
+  margin: 0;
+}
+
+.error-banner button {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--danger-color);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.error-banner button:hover {
+  background: rgba(239, 68, 68, 0.3);
+  transform: translateY(-2px);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
