@@ -1,6 +1,6 @@
 # Sentivent - Social Media Sentiment Analysis Dashboard
 
-Sentivent is a modern dashboard application that provides real-time sentiment analysis and monitoring of social media interactions across multiple platforms including Twitter, Instagram, and email communications.
+Sentivent is a modern sentiment analysis dashboard designed for event organizers to bridge the communication gap between organizers and their audience. The platform provides real-time sentiment analysis and monitoring of social media interactions across multiple platforms including Twitter, Instagram, and email communications. The data for analysis is collected from recent user feedback and social media apps (Twitter, Instagram, LinkedIn).
 
 ## Preview
 
@@ -40,6 +40,41 @@ Sentivent is a modern dashboard application that provides real-time sentiment an
 - **Styling**: Modern CSS with glassmorphic design
 - **Animation**: Smooth transitions and hover effects
 - **Responsive Design**: Mobile-first approach
+
+## Dependencies
+
+### Core Dependencies
+* **React** (v18.2.0) - UI library for building the frontend
+* **React DOM** (v18.2.0) - React rendering for web
+* **Vite** (v5.1.6) - Next generation frontend tooling
+* **Chart.js** (v4.4.8) - JavaScript charting library
+* **React ChartJS 2** (v5.3.0) - React wrapper for Chart.js
+
+### UI and Styling
+* **React Icons** (v5.0.1) - Popular icon library for React
+* **Tailwind CSS** - Utility-first CSS framework
+* **@nivo/line** (v0.84.0) - Line chart component
+* **@nivo/pie** (v0.84.0) - Pie chart component
+
+### Backend and API
+* **Express** (v4.18.2) - Web framework for Node.js
+* **Mongoose** (v8.0.3) - MongoDB object modeling
+* **Axios** (v1.6.8) - Promise based HTTP client
+* **CORS** (v2.8.5) - Cross-Origin Resource Sharing
+* **JSON Web Token** (v9.0.2) - JWT implementation
+* **Bcryptjs** (v2.4.3) - Password hashing
+
+### AI and Analysis
+* **@google/generative-ai** (v0.24.0) - Google's Gemini AI API
+* **Sentiment** (v5.0.2) - Sentiment analysis library
+
+### Development Dependencies
+* **ESLint** (v8.57.0) - JavaScript linter
+* **ESLint React Plugin** (v7.34.1) - React specific linting rules
+* **ESLint React Hooks Plugin** (v4.6.0) - React Hooks linting rules
+* **Nodemon** (v3.1.9) - Auto-restarting Node.js application
+* **Concurrently** (v8.2.2) - Run multiple commands concurrently
+* **Dotenv** (v16.3.1) - Environment variable management
 
 ## Getting Started
 
