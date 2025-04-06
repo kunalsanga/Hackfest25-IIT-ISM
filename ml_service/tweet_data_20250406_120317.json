@@ -1,0 +1,113 @@
+{
+  "original_tweet": {
+    "data": {
+      "author_id": "1854279625083691008",
+      "conversation_id": "1908372178036269546",
+      "id": "1908372178036269546",
+      "edit_history_tweet_ids": [
+        "1908372178036269546"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 37
+      },
+      "text": "\"Get ready to innovate! Team BigO is thrilled to announce that we're organizing a HACKATHON! Brace yourselves for code, creativity, and crazy ideas. Stay tuned for theme reveal, prizes &amp; registration details! #HackWithBigO #Hackathon2025 #TechForChange",
+      "created_at": "2025-04-05T04:12:37.000Z"
+    },
+    "includes": {
+      "users": [
+        {
+          "id": "1854279625083691008",
+          "name": "Sunny.k. Sebu",
+          "username": "SunnyKSebu"
+        }
+      ]
+    }
+  },
+  "replies": {
+    "data": [
+      {
+        "public_metrics": {
+          "retweet_count": 0,
+          "reply_count": 0,
+          "like_count": 0,
+          "quote_count": 0,
+          "bookmark_count": 0,
+          "impression_count": 6
+        },
+        "edit_history_tweet_ids": [
+          "1908763892563534073"
+        ],
+        "text": "@SunnyKSebu The wifi was very slow. #hackwithbigo #problem",
+        "id": "1908763892563534073",
+        "author_id": "1886052068198428672",
+        "created_at": "2025-04-06T06:09:09.000Z",
+        "in_reply_to_user_id": "1854279625083691008"
+      },
+      {
+        "public_metrics": {
+          "retweet_count": 0,
+          "reply_count": 0,
+          "like_count": 0,
+          "quote_count": 0,
+          "bookmark_count": 0,
+          "impression_count": 7
+        },
+        "edit_history_tweet_ids": [
+          "1908763750624063832"
+        ],
+        "text": "@SunnyKSebu low network bandwidth #problem #HackwithBigO",
+        "id": "1908763750624063832",
+        "author_id": "1854279625083691008",
+        "created_at": "2025-04-06T06:08:35.000Z",
+        "in_reply_to_user_id": "1854279625083691008"
+      },
+      {
+        "public_metrics": {
+          "retweet_count": 0,
+          "reply_count": 0,
+          "like_count": 2,
+          "quote_count": 0,
+          "bookmark_count": 0,
+          "impression_count": 17
+        },
+        "edit_history_tweet_ids": [
+          "1908388800574652823"
+        ],
+        "text": "@SunnyKSebu #problem #HackWithBigO audio issues",
+        "id": "1908388800574652823",
+        "author_id": "1908387854255849472",
+        "created_at": "2025-04-05T05:18:40.000Z",
+        "in_reply_to_user_id": "1854279625083691008"
+      }
+    ],
+    "includes": {
+      "users": [
+        {
+          "id": "1886052068198428672",
+          "name": "Kunal Sanga",
+          "username": "kunal_sanga"
+        },
+        {
+          "id": "1854279625083691008",
+          "name": "Sunny.k. Sebu",
+          "username": "SunnyKSebu"
+        },
+        {
+          "id": "1908387854255849472",
+          "name": "Mugdha Naik",
+          "username": "mugdhanaik63"
+        }
+      ]
+    },
+    "meta": {
+      "newest_id": "1908763892563534073",
+      "oldest_id": "1908388800574652823",
+      "result_count": 3
+    }
+  }
+}

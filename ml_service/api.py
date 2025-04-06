@@ -52,16 +52,14 @@ class FeedbackItem(BaseModel):
     timestamp: Optional[str] = None
 
 class AnalysisResponse(BaseModel):
-    sentiment: str
+    sentiment_score: float
+    sentiment_label: str
     confidence: float
-    key_points: List[str]
-    priority: str
-    suggested_actions: List[str]
 
 # Cache sentiment analysis results
 @lru_cache(maxsize=100)
 def cached_analyze_sentiment(text: str) -> dict:
-    return sentiment_analyzer.analyze_text(text)
+    return sentiment_analyzer.analyze_sentiment(text)
 
 @app.post("/analyze/text")
 async def analyze_text(request: TextAnalysisRequest):
@@ -131,14 +129,12 @@ async def analyze_feedback(feedback: FeedbackItem):
         analysis_result = cached_analyze_sentiment(feedback.text)
         
         # Log the analysis
-        logger.info(f"Analyzed feedback from {feedback.source}: {analysis_result['sentiment']}")
+        logger.info(f"Analyzed feedback from {feedback.source}: {analysis_result['sentiment_label']}")
         
         return AnalysisResponse(
-            sentiment=analysis_result["sentiment"],
-            confidence=analysis_result["confidence"],
-            key_points=analysis_result["key_points"],
-            priority=analysis_result["priority"],
-            suggested_actions=analysis_result["suggested_actions"]
+            sentiment_score=analysis_result["sentiment_score"],
+            sentiment_label=analysis_result["sentiment_label"],
+            confidence=analysis_result["confidence"]
         )
     except Exception as e:
         logger.error(f"Error analyzing feedback: {str(e)}")

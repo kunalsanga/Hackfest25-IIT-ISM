@@ -1,0 +1,67 @@
+{
+  "original_tweet": {
+    "data": {
+      "author_id": "1854279625083691008",
+      "conversation_id": "1908372178036269546",
+      "id": "1908372178036269546",
+      "created_at": "2025-04-05T04:12:37.000Z",
+      "text": "\"Get ready to innovate! Team BigO is thrilled to announce that we're organizing a HACKATHON! Brace yourselves for code, creativity, and crazy ideas. Stay tuned for theme reveal, prizes &amp; registration details! #HackWithBigO #Hackathon2025 #TechForChange",
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 27
+      },
+      "edit_history_tweet_ids": [
+        "1908372178036269546"
+      ]
+    },
+    "includes": {
+      "users": [
+        {
+          "id": "1854279625083691008",
+          "name": "Sunny.k. Sebu",
+          "username": "SunnyKSebu"
+        }
+      ]
+    }
+  },
+  "replies": {
+    "data": [
+      {
+        "text": "@SunnyKSebu #problem #HackWithBigO audio issues",
+        "edit_history_tweet_ids": [
+          "1908388800574652823"
+        ],
+        "public_metrics": {
+          "retweet_count": 0,
+          "reply_count": 0,
+          "like_count": 2,
+          "quote_count": 0,
+          "bookmark_count": 0,
+          "impression_count": 10
+        },
+        "author_id": "1908387854255849472",
+        "created_at": "2025-04-05T05:18:40.000Z",
+        "id": "1908388800574652823",
+        "in_reply_to_user_id": "1854279625083691008"
+      }
+    ],
+    "includes": {
+      "users": [
+        {
+          "id": "1908387854255849472",
+          "name": "Mugdha Naik",
+          "username": "mugdhanaik63"
+        }
+      ]
+    },
+    "meta": {
+      "newest_id": "1908388800574652823",
+      "oldest_id": "1908388800574652823",
+      "result_count": 1
+    }
+  }
+}
