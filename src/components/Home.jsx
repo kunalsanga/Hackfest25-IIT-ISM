@@ -1,19 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
+import blogTechEvent from '../assets/images/Blog-Tech-Events.jpg';
+import conferenceImage from '../../conference.jpg';
+import officeEventImage from '../../office event.jpg';
+import hackathonImage from '../../hackathon.jpg';
+import munImage from '../../mun.jpeg';
+import sportsImage from '../../sports.jpeg';
 
 // Sample event image placeholders (in production, these would come from your API/backend)
 const myEventPlaceholder = 'https://placehold.co/600x400/2563eb/ffffff?text=My+Event';
 const eventPlaceholders = [
-  'https://placehold.co/600x400/22c55e/ffffff?text=Event+1',
-  'https://placehold.co/600x400/ef4444/ffffff?text=Event+2',
-  'https://placehold.co/600x400/eab308/ffffff?text=Event+3',
-  'https://placehold.co/600x400/8b5cf6/ffffff?text=Event+4',
-  'https://placehold.co/600x400/ec4899/ffffff?text=Event+5',
-  'https://placehold.co/600x400/14b8a6/ffffff?text=Event+6',
-  'https://placehold.co/600x400/f97316/ffffff?text=Event+7',
-  'https://placehold.co/600x400/6366f1/ffffff?text=Event+8',
-  'https://placehold.co/600x400/84cc16/ffffff?text=Event+9',
-  'https://placehold.co/600x400/06b6d4/ffffff?text=Event+10',
+  blogTechEvent,  // Using Blog-Tech-Events image for Event 1
+  conferenceImage,  // Using conference image for Event 2
+  officeEventImage,  // Using office event image for Event 3
+  munImage,  // Using MUN image for Event 4
+  sportsImage,  // Using sports/marathon image for Event 5
+  hackathonImage,  // Using hackathon image for Event 9
 ];
 
 // Event categories 
