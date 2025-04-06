@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getTweetData } from '../services/tweetService';
+import { getAllTweetData } from '../services/tweetService';
 import { generateAISuggestions } from '../services/geminiService';
 import './AISuggestions.css';
 
 const AISuggestions = () => {
   const [tweetData, setTweetData] = useState(null);
-  const [suggestions, setSuggestions] = useState([]);
+  const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedReply, setSelectedReply] = useState(null);
@@ -13,43 +13,48 @@ const AISuggestions = () => {
   const [loadingAi, setLoadingAi] = useState(false);
 
   useEffect(() => {
-    // Load tweet data
-    const data = getTweetData();
-    setTweetData(data);
-    
-    // Extract issues from replies
-    if (data && data.replies && data.replies.data) {
-      const issues = data.replies.data.map(reply => {
-        const replyAuthor = data.replies.includes.users.find(
-          user => user.id === reply.author_id
-        );
-        
-        return {
-          id: reply.id,
-          text: reply.text,
-          author: replyAuthor ? replyAuthor.name : 'Unknown',
-          username: replyAuthor ? replyAuthor.username : 'unknown',
-          created_at: reply.created_at,
-          metrics: reply.public_metrics
-        };
-      });
+    try {
+      const data = getAllTweetData();
+      setTweetData(data);
       
-      setSuggestions(issues);
+      if (data && data.replies && data.replies.data) {
+        const processedIssues = data.replies.data.map(reply => {
+          const replyAuthor = data.replies.includes.users.find(
+            user => user.id === reply.author_id
+          );
+          
+          return {
+            id: reply.id,
+            text: reply.text,
+            author: replyAuthor ? replyAuthor.name : 'Unknown',
+            username: replyAuthor ? replyAuthor.username : 'unknown',
+            created_at: reply.created_at,
+            metrics: reply.public_metrics
+          };
+        });
+        
+        processedIssues.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        
+        setIssues(processedIssues);
+      } else {
+        setIssues([]);
+      }
+      setLoading(false);
+    } catch (err) {
+      console.error("Error loading or processing tweet data:", err);
+      setError("Failed to load tweet data. Please try again.");
+      setLoading(false);
     }
-    
-    setLoading(false);
   }, []);
 
-  const handleReplyClick = async (reply) => {
-    setSelectedReply(reply);
+  const handleReplyClick = async (issue) => {
+    setSelectedReply(issue);
     setLoadingAi(true);
     setAiResponse(null);
     
     try {
-      // Extract the issue from the reply text
-      const issueText = reply.text;
+      const issueText = issue.text;
       
-      // Generate AI suggestion using Gemini API
       const aiSuggestion = await generateAISuggestions([{
         title: "Issue from Twitter Reply",
         description: issueText
@@ -59,17 +64,18 @@ const AISuggestions = () => {
     } catch (err) {
       setError("Failed to generate AI suggestion. Please try again.");
       console.error("Error generating AI suggestion:", err);
+      setAiResponse(null);
     } finally {
       setLoadingAi(false);
     }
   };
 
   if (loading) {
-    return <div className="ai-suggestions-loading">Loading tweet data...</div>;
+    return <div className="ai-suggestions-loading"><div className="loading-spinner"></div><p>Loading tweet data...</p></div>;
   }
 
-  if (error) {
-    return <div className="ai-suggestions-error">{error}</div>;
+  if (error && !tweetData) {
+    return <div className="ai-suggestions-error"><p>{error}</p></div>;
   }
 
   return (
@@ -82,58 +88,62 @@ const AISuggestions = () => {
       <div className="ai-suggestions-content">
         <div className="original-tweet-section">
           <h3>Original Tweet</h3>
-          {tweetData && tweetData.original_tweet && (
+          {tweetData && tweetData.original_tweet && tweetData.original_tweet.data && (
             <div className="tweet-card">
               <div className="tweet-header">
-                <img 
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(tweetData.original_tweet.includes.users[0].name)}&background=random`} 
-                  alt={tweetData.original_tweet.includes.users[0].name} 
-                  className="avatar"
-                />
+                {tweetData.replies.includes.users.find(u => u.id === tweetData.original_tweet.data.author_id) ? (
+                    <div className="avatar" style={{}}>
+                        {tweetData.replies.includes.users.find(u => u.id === tweetData.original_tweet.data.author_id).name.charAt(0)}
+                    </div>
+                ) : (
+                    <div className="avatar">?</div>
+                )}
                 <div className="tweet-author">
-                  <h4>{tweetData.original_tweet.includes.users[0].name}</h4>
-                  <p>@{tweetData.original_tweet.includes.users[0].username}</p>
+                  <div className="author-name">{tweetData.replies.includes.users.find(u => u.id === tweetData.original_tweet.data.author_id)?.name ?? 'Unknown Author'}</div>
+                  <div className="author-handle">@{tweetData.replies.includes.users.find(u => u.id === tweetData.original_tweet.data.author_id)?.username ?? 'unknown'}</div>
                 </div>
               </div>
               <div className="tweet-content">
                 <p>{tweetData.original_tweet.data.text}</p>
-                <div className="tweet-metrics">
-                  <span>{tweetData.original_tweet.data.public_metrics.retweet_count} retweets</span>
-                  <span>{tweetData.original_tweet.data.public_metrics.like_count} likes</span>
-                  <span>{tweetData.original_tweet.data.public_metrics.reply_count} replies</span>
-                </div>
+              </div>
+              <div className="tweet-metrics">
+                <span className="metric"><svg>...</svg> {tweetData.original_tweet.data.public_metrics.retweet_count} Retweets</span>
+                <span className="metric"><svg>...</svg> {tweetData.original_tweet.data.public_metrics.like_count} Likes</span>
+                <span className="metric"><svg>...</svg> {tweetData.original_tweet.data.public_metrics.reply_count} Replies</span>
               </div>
             </div>
           )}
         </div>
         
         <div className="replies-section">
-          <h3>Replies & Issues</h3>
+          <h3>Replies & Issues ({issues.length})</h3>
           <div className="replies-list">
-            {suggestions.map(reply => (
-              <div 
-                key={reply.id} 
-                className={`reply-card ${selectedReply && selectedReply.id === reply.id ? 'selected' : ''}`}
-                onClick={() => handleReplyClick(reply)}
-              >
-                <div className="reply-header">
-                  <img 
-                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(reply.author)}&background=random`} 
-                    alt={reply.author} 
-                    className="avatar"
-                  />
-                  <div className="reply-author">
-                    <h4>{reply.author}</h4>
-                    <p>@{reply.username}</p>
+            {issues.length > 0 ? (
+              issues.map(issue => (
+                <div 
+                  key={issue.id} 
+                  className={`reply-card ${selectedReply && selectedReply.id === issue.id ? 'selected' : ''}`}
+                  onClick={() => handleReplyClick(issue)}
+                >
+                  <div className="reply-header">
+                     <div className="reply-avatar">
+                         {issue.author.charAt(0)}
+                     </div>
+                    <div className="reply-author">
+                      <div className="reply-author-name">{issue.author}</div>
+                      <div className="reply-author-handle">@{issue.username}</div>
+                    </div>
+                  </div>
+                  <p className="reply-content">{issue.text}</p>
+                  <div className="reply-metrics">
+                    <span className="metric"><svg>...</svg> {issue.metrics.like_count} Likes</span>
+                    <span className="metric"><svg>...</svg> {issue.metrics.retweet_count} Retweets</span>
                   </div>
                 </div>
-                <p className="reply-text">{reply.text}</p>
-                <div className="reply-metrics">
-                  <span>{reply.metrics.like_count} likes</span>
-                  <span>{reply.metrics.retweet_count} retweets</span>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div className="ai-placeholder"><p>No replies found for this tweet.</p></div>
+            )}
           </div>
         </div>
         
@@ -143,22 +153,19 @@ const AISuggestions = () => {
             loadingAi ? (
               <div className="ai-loading">
                 <div className="ai-loading-spinner"></div>
-                <p>Generating AI solution...</p>
+                <p>Generating AI solution for: "{selectedReply.text}"</p>
               </div>
             ) : aiResponse ? (
-              <div className="ai-suggestion-card">
-                <div className="ai-suggestion-header">
-                  <span className="ai-icon">🤖</span>
-                  <h4>Solution for: {selectedReply.text}</h4>
-                </div>
-                <div className="ai-suggestion-content">
-                  {aiResponse.map((suggestion, index) => (
+              <div className="ai-response">
+                 <h4>🤖 Solution for: "{selectedReply.text}"</h4>
+                {Array.isArray(aiResponse) ? (
+                  aiResponse.map((suggestion, index) => (
                     <div key={index} className="suggestion-item">
-                      <h5>{suggestion.title}</h5>
-                      <p>{suggestion.description}</p>
-                      {suggestion.steps && (
+                      {suggestion.title && <h5>{suggestion.title}</h5>}
+                      <p>{suggestion.description || 'No description provided.'}</p>
+                      {suggestion.steps && Array.isArray(suggestion.steps) && (
                         <div className="suggestion-steps">
-                          <h6>Steps to resolve:</h6>
+                          <h6>Steps:</h6>
                           <ol>
                             {suggestion.steps.map((step, stepIndex) => (
                               <li key={stepIndex}>{step}</li>
@@ -166,18 +173,26 @@ const AISuggestions = () => {
                           </ol>
                         </div>
                       )}
+                      {(suggestion.priority || suggestion.impact) && (
+                          <div className="suggestion-meta">
+                              {suggestion.priority && <span className={`priority ${suggestion.priority.toLowerCase()}`}>Priority: {suggestion.priority}</span>}
+                              {suggestion.impact && <span className="impact">Impact: {suggestion.impact}</span>}
+                          </div>
+                      )}
                     </div>
-                  ))}
-                </div>
+                  ))
+                ) : (
+                  <p>{typeof aiResponse === 'string' ? aiResponse : 'Generated suggestion format is unexpected.'}</p>
+                )}
               </div>
             ) : (
               <div className="ai-error">
-                <p>Failed to generate AI solution. Please try again.</p>
+                <p>{error || "Failed to generate AI solution. Please try clicking the reply again."}</p>
               </div>
             )
           ) : (
             <div className="ai-placeholder">
-              <p>Select a reply to see AI-generated solutions</p>
+              <p>Select a reply from the list to see AI-generated solutions</p>
             </div>
           )}
         </div>
